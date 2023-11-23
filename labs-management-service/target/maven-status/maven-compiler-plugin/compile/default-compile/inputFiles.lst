@@ -1,0 +1,10 @@
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\dto\ErrorMessageDTO.java
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\exception\DatabaseException.java
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\repository\LabManagementRepository.java
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\service\LabManagementService.java
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\config\WebClientConfig.java
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\LabsManagementServiceApplication.java
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\entity\LabManagement.java
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\controller\LabManagementController.java
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\exception\LabNotFoundException.java
+F:\Spring Workspace\labs-management-service\src\main\java\com\onehealth\serviceImplementation\LabManagementServiceImplementation.java

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: documentation-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: documentation-service
+  template:
+    metadata:
+      labels:
+        app: documentation-service
+    spec: 
+      containers:
+      - name: documentation-service
+        image: yjb28/documentation-service:v11
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: documentation-service
+spec:
+  selector:
+    app: documentation-service
+  ports:
+  - name: tcp
+    port: 8080
+    targetPort: 8080
+    nodePort: 30025
+  type: LoadBalancer
