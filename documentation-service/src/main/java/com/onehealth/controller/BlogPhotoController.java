@@ -37,7 +37,7 @@ import java.util.logging.Logger;
  * and delegates the request handling to the BlogPhotoService.
  */
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RequestMapping("api/documentation/blog_photo")
 public class BlogPhotoController {
 	
@@ -47,24 +47,8 @@ public class BlogPhotoController {
 
     private static final Logger logger = Logger.getLogger(BlogPhotoController.class.getName());
 
-    /**
-     * Retrieves all BlogPhotos associated with the given blog ID.
-     *
-     * @param blog_id The ID of the blog to get BlogPhotos for.
-     * @return ResponseEntity containing a list of BlogPhotos and a 200 OK status if successful.
-     * @throws DatabaseException If there's an error while retrieving BlogPhotos from the repository.
-     */
-    @GetMapping("/{blog_id}")
-    public ResponseEntity<List<BlogPhoto>> getAllByBlogId(@PathVariable long blog_id) throws DatabaseException {
-        try {
-            List<BlogPhoto> blogPhotos = blogPhotoService.getAllByBlogId(blog_id);
-            logger.log(Level.INFO, "Retrieved " + blogPhotos.size() + " BlogPhotos for blog ID: " + blog_id);
-            return ResponseEntity.ok(blogPhotos);
-        } catch (DatabaseException e) {
-            logger.log(Level.SEVERE, "Error occurred while retrieving BlogPhotos for blog ID: " + blog_id);
-            throw e;
-        }
-    }
+
+    
 
     /**
      * Deletes a BlogPhoto with the given ID from the repository.

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: lab-test-cart-management-service
-        image: yjb28/LabCart:v1
+        image: yjb28/lab-test-cart-management-service:v12
 ---
 apiVersion: v1
 kind: Service

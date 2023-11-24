@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: labs-management-service
-        image: yjb28/LabsManagement:v1
+        image: yjb28/labs-management-service:v12
 ---
 apiVersion: v1
 kind: Service

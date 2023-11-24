@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "spring.servlet.multipart.supported-media-types",
+  "type": "java.lang.String",
+  "description": "A description for 'spring.servlet.multipart.supported-media-types'"
+}]}

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * It provides endpoints to upload, update, and delete MedicinePhotos and retrieve photos by medicine ID.
  */
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RequestMapping("api/documentation/medicine-photos")
 public class MedicinePhotoController {
 
