@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: lab-test-cart-management-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: lab-test-cart-management-service
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: lab-test-cart-management-service
-        image: yjb28/lab-test-cart-management-service:v12
+        image: yjb28/lab-test-cart-management-service:v15
 ---
 apiVersion: v1
 kind: Service

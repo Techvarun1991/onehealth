@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: labs-management-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: labs-management-service
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: labs-management-service
-        image: yjb28/labs-management-service:v12
+        image: yjb28/labs-management-service:v15
 ---
 apiVersion: v1
 kind: Service
