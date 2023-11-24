@@ -43,7 +43,6 @@ public class LabCartController {
 
         try {
             labCartService.addToCart(itemRequest);
-
             logger.info("Test added to lab cart successfully.");
             return ResponseEntity.ok("Test added to lab cart successfully.");
         } catch (ResourceNotFoundException e) {
