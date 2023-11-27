@@ -35,11 +35,12 @@ public interface BlogPhotoService {
      * Stores a new BlogPhoto in the database.
      * 
      * @param file The MultipartFile representing the image file to be stored as the BlogPhoto.
+     * @param blog Id
      * @return The ID of the newly stored BlogPhoto.
      * @throws IOException      If an I/O error occurs while reading the file.
      * @throws DatabaseException If an error occurs while accessing the database.
      */
-    String storeBlogPhoto(MultipartFile file) throws IOException, DatabaseException;
+    String storeBlogPhoto(MultipartFile file,long blogId) throws IOException, DatabaseException;
 
     /**
      * Updates an existing BlogPhoto in the database.
@@ -48,4 +49,13 @@ public interface BlogPhotoService {
      * @throws DatabaseException If an error occurs while accessing the database.
      */
     void updateBlogPhoto(BlogPhoto blogPhoto) throws DatabaseException;
+
+    /**
+     * Deletes all blog photos associated with a specific blog ID.
+     *
+     * @param blogId The ID of the blog.
+     * @return ResponseEntity with a success message and status 200 if successful.
+     * @throws DatabaseException 
+     */
+	void deleteBlogPhotosByBlogId(long blogId) throws DatabaseException;
 }

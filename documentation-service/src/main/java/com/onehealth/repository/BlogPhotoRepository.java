@@ -19,4 +19,11 @@ public interface BlogPhotoRepository extends MongoRepository<BlogPhoto, String> 
      * @return A list of BlogPhoto objects associated with the specified blogId.
      */
     List<BlogPhoto> findByBlogId(long blogId);
+    
+    /**
+     * Deletes blog documents by blog ID.
+     *
+     * @param blogId The ID of the blog.
+     */
+    void deleteByBlogId(long blogId);
 }

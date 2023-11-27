@@ -62,13 +62,14 @@ public class BlogPhotoServiceImplementation implements BlogPhotoService {
      * @throws DatabaseException If there is an error while accessing the database.
      */
     @Override
-    public String storeBlogPhoto(MultipartFile file) throws IOException, DatabaseException {
+    public String storeBlogPhoto(MultipartFile file,long blogId) throws IOException, DatabaseException {
         try {
             BlogPhoto blogPhoto = new BlogPhoto();
             blogPhoto.setFilename(file.getOriginalFilename());
             blogPhoto.setFileType(file.getContentType());
             blogPhoto.setFileSize(Long.toString(file.getSize()));
             blogPhoto.setFile(file.getBytes());
+            blogPhoto.setBlogId(blogId);
             blogPhotoRepository.save(blogPhoto);
             logger.log(Level.INFO, "BlogPhoto stored successfully with ID: " + blogPhoto.getId());
             return blogPhoto.getId();
@@ -88,5 +89,22 @@ public class BlogPhotoServiceImplementation implements BlogPhotoService {
     public void deleteBlogPhoto(String id) throws DatabaseException {
         blogPhotoRepository.deleteById(id);
         logger.log(Level.INFO, "BlogPhoto deleted successfully with ID: " + id);
+    }
+    
+    /**
+     * Deletes all blog photos associated with a specific blog ID.
+     *
+     * @param blogId The ID of the blog.
+     * @return ResponseEntity with a success message and status 200 if successful.
+     */
+    @Override
+    public void deleteBlogPhotosByBlogId(long blogId) throws DatabaseException {
+        try {
+        	blogPhotoRepository.deleteByBlogId(blogId);
+            logger.log(Level.INFO, "Deleted all Patient Documents for patient ID: " + blogId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error occurred while deleting Patient Documents for patient ID: " + blogId, e);
+            throw new DatabaseException("Error occurred while deleting Patient Documents");
+        }
     }
 }

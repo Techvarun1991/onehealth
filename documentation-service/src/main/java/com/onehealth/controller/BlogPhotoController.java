@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartResolver;
 
 //import com.google.common.net.MediaType;
 import com.onehealth.entity.BlogPhoto;
+import com.onehealth.entity.PatientDocument;
 import com.onehealth.exception.DatabaseException;
 import com.onehealth.service.BlogPhotoService;
 
@@ -48,7 +49,23 @@ public class BlogPhotoController {
     private static final Logger logger = Logger.getLogger(BlogPhotoController.class.getName());
 
 
-    
+    /**
+     * Finds and returns a list of BlogPhotos associated with the specified blogId.
+     *
+     * @param blogId The ID of the blog for which BlogPhotos are to be retrieved.
+     * @return A list of BlogPhoto objects associated with the specified blogId.
+     */
+    @GetMapping("/{blogId}")
+    public ResponseEntity<?> getPatientDocumentsByPatientId(@PathVariable long blogId) {
+        try {
+            List<BlogPhoto> patientDocuments = blogPhotoService.getAllByBlogId(blogId);
+            logger.log(Level.INFO, "Retrieved " + patientDocuments.size() + " PatientDocuments for patient ID: " + blogId);
+            return ResponseEntity.ok(patientDocuments);
+        } catch (DatabaseException e) {
+            logger.log(Level.SEVERE, "Error occurred while retrieving PatientDocuments for patient ID: " + blogId, e);
+            return ResponseEntity.status(500).body("Error occurred while retrieving Patient Documents");
+        }
+    }
 
     /**
      * Deletes a BlogPhoto with the given ID from the repository.
@@ -78,10 +95,10 @@ public class BlogPhotoController {
      * @throws DatabaseException If there's an error while storing the BlogPhoto in the repository.
      */
     @PostMapping
-    public ResponseEntity<String> storeBlogPhoto(@RequestPart MultipartFile file) throws IOException, DatabaseException {
+    public ResponseEntity<String> storeBlogPhoto(@RequestParam("file") MultipartFile file , long blogId) throws IOException, DatabaseException {
         try {
             // Your existing logic to handle the file
-            String fileId = blogPhotoService.storeBlogPhoto(file);
+            String fileId = blogPhotoService.storeBlogPhoto(file,blogId);
             logger.log(Level.INFO, "BlogPhoto uploaded successfully with ID: " + fileId);
             return ResponseEntity.ok("Blog Photo uploaded successfully. File ID: " + fileId);
         } catch (IOException | DatabaseException e) {
@@ -111,4 +128,21 @@ public class BlogPhotoController {
             throw e;
         }
     }
+    
+    
+    
+    /**
+     * Deletes all blog photos associated with a specific blog ID.
+     *
+     * @param blogId The ID of the blog.
+     * @return ResponseEntity with a success message and status 200 if successful.
+     */
+    @DeleteMapping("/delete-all/{blogId}")
+    public ResponseEntity<String> deleteBlogIdByPatientId(@PathVariable long blogId) throws DatabaseException {
+        blogPhotoService.deleteBlogPhotosByBlogId(blogId);
+		logger.log(Level.INFO, "Deleted all Patient Documents for patient ID: " + blogId);
+		return ResponseEntity.ok("All Patient Documents deleted successfully.");
+    }
+    
+    
 }

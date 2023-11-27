@@ -14,12 +14,7 @@ public class OrderRequest {
 	public void setCart_id(long cart_id) {
 		this.cart_id = cart_id;
 	}
-//	public long getLab_id() {
-//		return lab_id;
-//	}
-//	public void setLab_id(long lab_id) {
-//		this.lab_id = lab_id;
-//	}
+
 	public long getPatient_id() {
 		return patient_id;
 	}
@@ -37,7 +32,6 @@ public class OrderRequest {
 	public OrderRequest(long cart_id, long patient_id) {
 		super();
 		this.cart_id = cart_id;
-//		this.lab_id = lab_id;
 		this.patient_id = patient_id;
 	}
 
