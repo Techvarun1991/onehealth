@@ -65,5 +65,12 @@ public interface MedicinePhotoService {
      * @param id The ID of the MedicinePhoto to retrieve.
      * @return An Optional containing the MedicinePhoto object if found, or an empty Optional if not found.
      */
-    Optional<MedicinePhoto> getMedicinePhotoById(String id);	
+    Optional<MedicinePhoto> getMedicinePhotoById(String id);
+    
+    /**
+     * Deletes Medicine documents by Medicine ID.
+     *
+     * @param medId The ID of the Medicine.
+     */
+    void deleteByMedicineId(long medId) throws DatabaseException;
 }

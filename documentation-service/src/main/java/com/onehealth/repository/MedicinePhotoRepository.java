@@ -20,4 +20,12 @@ public interface MedicinePhotoRepository extends MongoRepository<MedicinePhoto, 
      * @return A list of MedicinePhoto objects associated with the given medicine ID.
      */
     List<MedicinePhoto> findByMedicineId(long medicineId);
+    
+    
+    /**
+     * Deletes Medicine documents by Medicine ID.
+     *
+     * @param medId The ID of the Medicine.
+     */
+    void deleteByMedicineId(long medId);
 }

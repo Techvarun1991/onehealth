@@ -155,5 +155,18 @@ public class MedicinePhotoController {
             throw e;
         }
     }
+    
+    /**
+     * Deletes all blog photos associated with a specific blog ID.
+     *
+     * @param medId The ID of the blog.
+     * @return ResponseEntity with a success message and status 200 if successful.
+     */
+    @DeleteMapping("/delete-all/{medId}")
+    public ResponseEntity<String> deleteMedicinePhotosByMedId(@PathVariable long medId) throws DatabaseException {
+    	medicinePhotoService.deleteByMedicineId(medId);
+		logger.log(Level.INFO, "Deleted all Medicine Photos for Medicine photo ID: " + medId);
+		return ResponseEntity.ok("All Medicine Photos deleted successfully.");
+    }
 
 }

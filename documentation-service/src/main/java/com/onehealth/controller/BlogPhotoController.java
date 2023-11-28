@@ -56,11 +56,11 @@ public class BlogPhotoController {
      * @return A list of BlogPhoto objects associated with the specified blogId.
      */
     @GetMapping("/{blogId}")
-    public ResponseEntity<?> getPatientDocumentsByPatientId(@PathVariable long blogId) {
+    public ResponseEntity<?> getAllBlogPhotosByBlogId(@PathVariable long blogId) {
         try {
-            List<BlogPhoto> patientDocuments = blogPhotoService.getAllByBlogId(blogId);
-            logger.log(Level.INFO, "Retrieved " + patientDocuments.size() + " PatientDocuments for patient ID: " + blogId);
-            return ResponseEntity.ok(patientDocuments);
+            List<BlogPhoto> blogPhotos = blogPhotoService.getAllByBlogId(blogId);
+            logger.log(Level.INFO, "Retrieved " + blogPhotos.size() + " PatientDocuments for patient ID: " + blogId);
+            return ResponseEntity.ok(blogPhotos);
         } catch (DatabaseException e) {
             logger.log(Level.SEVERE, "Error occurred while retrieving PatientDocuments for patient ID: " + blogId, e);
             return ResponseEntity.status(500).body("Error occurred while retrieving Patient Documents");
@@ -138,10 +138,10 @@ public class BlogPhotoController {
      * @return ResponseEntity with a success message and status 200 if successful.
      */
     @DeleteMapping("/delete-all/{blogId}")
-    public ResponseEntity<String> deleteBlogIdByPatientId(@PathVariable long blogId) throws DatabaseException {
+    public ResponseEntity<String> deleteBlogIdByBlogId(@PathVariable long blogId) throws DatabaseException {
         blogPhotoService.deleteBlogPhotosByBlogId(blogId);
-		logger.log(Level.INFO, "Deleted all Patient Documents for patient ID: " + blogId);
-		return ResponseEntity.ok("All Patient Documents deleted successfully.");
+		logger.log(Level.INFO, "Deleted all BLog Photos for blog ID: " + blogId);
+		return ResponseEntity.ok("All Blog Photos deleted successfully.");
     }
     
     

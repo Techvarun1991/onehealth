@@ -143,5 +143,17 @@ public class MedicinePhotoServiceImplementation implements MedicinePhotoService 
         }
     }
 
+	@Override
+	public void deleteByMedicineId(long medId) throws DatabaseException{
+		// TODO Auto-generated method stub
+		try {
+			medicinePhotoRepository.deleteByMedicineId(medId);
+            logger.log(Level.INFO, "Deleted all Medicine Photos for Medicine ID: " + medId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error occurred while deleting Medicine photos for Medicine ID: " + medId, e);
+            throw new DatabaseException("Error occurred while deleting Medicine photos");
+        }
+	}
+
 }
 
