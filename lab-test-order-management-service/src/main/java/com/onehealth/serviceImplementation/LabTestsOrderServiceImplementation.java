@@ -236,8 +236,8 @@ public class LabTestsOrderServiceImplementation implements LabTestsOrderService{
 	             itemToUpdate.setOrder_status(dto.getOrder_status());
 	             itemToUpdate.setPayment_status(dto.getPayment_status());
 	             itemToUpdate.setPayment_mode(dto.getPayment_mode());
-
-	             // Save the updated LabOrderItem
+	             itemToUpdate.setTest_date(dto.getTest_date());	  
+	             System.out.println("ITEM TO UPDATE : " +itemToUpdate.getTest_date());
 	             labTestsOrderRepository.save(order);
 
 	             logger.info("Updated order with orderId: {} and orderItemId: {}", dto.getOrder_id(), dto.getOrder_item_id());
