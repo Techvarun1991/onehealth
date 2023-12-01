@@ -11,6 +11,8 @@ import java.util.Optional;
 
 /**
  * Service interface for managing patient documents.
+ * Provides methods to retrieve a list of patient documents based on patient ID and record type.
+ * Additional methods can be added for other document-related operations.
  */
 public interface PatientDocumentService {
 
@@ -22,7 +24,7 @@ public interface PatientDocumentService {
      * @return The ID of the stored document.
      * @throws IOException If there is an error reading the file.
      */
-    String storePatientDocument(MultipartFile file, long patientId) throws IOException;
+    String storePatientDocument(MultipartFile file, long patientId,String recordType) throws IOException;
 
     /**
      * Retrieves all patient documents in the system.
@@ -82,4 +84,15 @@ public interface PatientDocumentService {
      * @return The byte array representing the file content of the PatientDocument.
      */
     byte[] downloadPatientDocument(String id);
+    
+    
+    /**
+     * Retrieves all patient documents for a given patient ID and record type.
+     *
+     * @param patientId  The ID of the patient.
+     * @param recordType The record type of the documents.
+     * @return A list of patient documents.
+     * @throws RuntimeException If an error occurs while retrieving documents.
+     */
+    List<PatientDocument> getAllPatientDocuments(long patientId, String recordType);
 }

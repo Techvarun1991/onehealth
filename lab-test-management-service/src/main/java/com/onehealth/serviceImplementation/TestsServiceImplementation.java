@@ -257,7 +257,7 @@ public class TestsServiceImplementation implements TestsService{
     public void deleteAllTestsFromLabId(long labId) {
         testRepository.deleteByLabId(labId);
         logger.info("Deleted all tests associated with lab ID: {}", labId);
-    }
+    } 
 
     /**
      * Sets the approval status of a test.

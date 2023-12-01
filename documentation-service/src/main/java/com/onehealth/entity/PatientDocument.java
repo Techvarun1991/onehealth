@@ -15,6 +15,28 @@ public class PatientDocument {
     private String fileSize;
     private byte[] file;
     private long patientId;
+    private String recordType;
+	@Override
+	public String toString() {
+		return "PatientDocument [id=" + id + ", filename=" + filename + ", fileType=" + fileType + ", fileSize="
+				+ fileSize + ", file=" + Arrays.toString(file) + ", patientId=" + patientId + ", recordType="
+				+ recordType + "]";
+	}
+	public PatientDocument() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public PatientDocument(String id, String filename, String fileType, String fileSize, byte[] file, long patientId,
+			String recordType) {
+		super();
+		this.id = id;
+		this.filename = filename;
+		this.fileType = fileType;
+		this.fileSize = fileSize;
+		this.file = file;
+		this.patientId = patientId;
+		this.recordType = recordType;
+	}
 	public String getId() {
 		return id;
 	}
@@ -51,26 +73,14 @@ public class PatientDocument {
 	public void setPatientId(long patientId) {
 		this.patientId = patientId;
 	}
-	@Override
-	public String toString() {
-		return "PatientDocument [id=" + id + ", filename=" + filename + ", fileType=" + fileType + ", fileSize="
-				+ fileSize + ", file=" + Arrays.toString(file) + ", patientId=" + patientId + "]";
+	public String getRecordType() {
+		return recordType;
 	}
-	public PatientDocument() {
-		super();
-		// TODO Auto-generated constructor stub
+	public void setRecordType(String recordType) {
+		this.recordType = recordType;
 	}
-	public PatientDocument(String id, String filename, String fileType, String fileSize, byte[] file, long patientId) {
-		super();
-		this.id = id;
-		this.filename = filename;
-		this.fileType = fileType;
-		this.fileSize = fileSize;
-		this.file = file;
-		this.patientId = patientId;
-	}
+    
 
-    // Constructors, getters, setters
     
     
 }

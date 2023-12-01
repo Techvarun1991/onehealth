@@ -40,9 +40,9 @@ public class PatientDocumentController {
      */
     @PostMapping
     public ResponseEntity<String> uploadPatientDocument(@RequestParam("file") MultipartFile file,
-                                                       @RequestParam long patientId) {
+                                                       @RequestParam long patientId , @RequestParam String recordType) {
         try {
-            String fileId = patientDocumentService.storePatientDocument(file, patientId);
+            String fileId = patientDocumentService.storePatientDocument(file, patientId,recordType);
             logger.log(Level.INFO, "Patient Document uploaded successfully. File ID: " + fileId);
             return ResponseEntity.ok("Patient Document uploaded successfully. File ID: " + fileId);
         } catch (IOException e) {
@@ -191,4 +191,29 @@ public class PatientDocumentController {
             throw e;
         }
     }
+    
+    
+    /**
+     * Retrieves all patient documents for a given patient ID and record type.
+     *
+     * @param patientId  The ID of the patient.
+     * @param recordType The record type of the documents.
+     * @return ResponseEntity with a list of patient documents and status 200 if successful.
+     */
+    @GetMapping("/{patientId}/{recordType}")
+    public ResponseEntity<List<PatientDocument>> getAllPatientDocuments(@PathVariable long patientId,
+                                                                        @PathVariable String recordType) {
+        try {
+            List<PatientDocument> patientDocuments = patientDocumentService.getAllPatientDocuments(patientId, recordType);
+            logger.log(Level.INFO, "Retrieved " + patientDocuments.size() + " PatientDocuments for patient ID: " + patientId
+                    + " and record type: " + recordType);
+            return ResponseEntity.ok(patientDocuments);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error occurred while retrieving PatientDocuments for patient ID: " + patientId
+                    + " and record type: " + recordType, e);
+            // Handle exception or throw a custom exception if needed
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
 }

@@ -36,7 +36,7 @@ public class PatientDocumentServiceImpl implements PatientDocumentService {
      * @throws IOException If there's an error reading or storing the file.
      */
     @Override
-    public String storePatientDocument(MultipartFile file, long patientId) throws IOException {
+    public String storePatientDocument(MultipartFile file, long patientId,String recordType) throws IOException {
         try {
             PatientDocument patientDocument = new PatientDocument();
             patientDocument.setFilename(file.getOriginalFilename());
@@ -44,6 +44,7 @@ public class PatientDocumentServiceImpl implements PatientDocumentService {
             patientDocument.setFileSize(Long.toString(file.getSize()));
             patientDocument.setFile(file.getBytes());
             patientDocument.setPatientId(patientId);
+            patientDocument.setRecordType(recordType);
             patientDocumentRepository.save(patientDocument);
             logger.log(Level.INFO, "Stored Patient Document with ID: " + patientDocument.getId() + " for patient ID: " + patientId);
             return patientDocument.getId();
@@ -181,6 +182,30 @@ public class PatientDocumentServiceImpl implements PatientDocumentService {
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error occurred while downloading PatientDocument with ID: " + id);
             throw e;
+        }
+ 
+    }
+    
+    
+    /**
+     * Retrieves all patient documents for a given patient ID and record type.
+     *
+     * @param patientId  The ID of the patient.
+     * @param recordType The record type of the documents.
+     * @return A list of patient documents.
+     * @throws RuntimeException If an error occurs while retrieving documents.
+     */
+    @Override
+    public List<PatientDocument> getAllPatientDocuments(long patientId, String recordType) {
+        try {
+            List<PatientDocument> patientDocuments = patientDocumentRepository.findByPatientIdAndRecordType(patientId, recordType);
+            logger.log(Level.INFO, "Retrieved " + patientDocuments.size() + " PatientDocuments for patient ID: " + patientId
+                    + " and record type: " + recordType);
+            return patientDocuments;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error occurred while retrieving PatientDocuments for patient ID: " + patientId
+                    + " and record type: " + recordType, e);
+            throw new RuntimeException("Error occurred while retrieving Patient Documents", e);
         }
     }
 }
