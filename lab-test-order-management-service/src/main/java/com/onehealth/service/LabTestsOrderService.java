@@ -10,6 +10,7 @@ import com.onehealth.dto.LabTestOrderItemPair;
 import com.onehealth.dto.OrderDto;
 import com.onehealth.dto.OrderRequest;
 import com.onehealth.dto.OrderUpdateDto;
+import com.onehealth.dto.TestDateDto;
 import com.onehealth.exception.ResourceNotFoundException;
 
 
@@ -23,4 +24,5 @@ public interface LabTestsOrderService {
 	void deleteOrderById(long order_id) throws ResourceNotFoundException;
 	boolean updateOrder(OrderUpdateDto orderDto) throws ResourceNotFoundException;
 	List<LabOrderDetailsDto> findLabOrderDetailsByLabId(long labId);
+	boolean updateTestDate(TestDateDto testDateDto) throws ResourceNotFoundException;
 }

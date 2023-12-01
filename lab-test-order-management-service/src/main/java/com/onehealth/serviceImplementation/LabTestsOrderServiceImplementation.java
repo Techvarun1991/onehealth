@@ -24,6 +24,7 @@ import com.onehealth.dto.OrderDto;
 import com.onehealth.dto.OrderRequest;
 import com.onehealth.dto.OrderUpdateDto;
 import com.onehealth.dto.Patient;
+import com.onehealth.dto.TestDateDto;
 import com.onehealth.entity.LabOrderItem;
 import com.onehealth.entity.LabTestsOrder;
 import com.onehealth.exception.ResourceNotFoundException;
@@ -302,5 +303,38 @@ public class LabTestsOrderServiceImplementation implements LabTestsOrderService{
 
 	        return result;
 	    }
+
+
+
+	@Override
+	public boolean updateTestDate(TestDateDto testDateDto) throws ResourceNotFoundException {
+		// TODO Auto-generated method stub
+		
+		logger.info("Updating order with orderId: {} and orderItemId: {}", testDateDto.getOrder_id(), testDateDto.getOrder_item_id());
+	     // Retrieve the LabTestsOrder by orderId
+	     LabTestsOrder order = labTestsOrderRepository.findById(testDateDto.getOrder_id()).orElse(null);
+
+	     if (order != null) {
+	         // Find the LabOrderItem within the LabTestsOrder by orderItemId
+	         LabOrderItem itemToUpdate = order.getItem()
+	                 .stream()
+	                 .filter(item -> item.getOrderItemId() == testDateDto.getOrder_item_id())
+	                 .findFirst()
+	                 .orElse(null);
+	         
+	         if (itemToUpdate != null) {
+	             // Update the item's details
+	             itemToUpdate.setTest_date(testDateDto.getTest_date());	  
+	             System.out.println("ITEM TO UPDATE : " +itemToUpdate.getTest_date());
+	             labTestsOrderRepository.save(order);
+
+	             logger.info("Updated order with orderId: {} and orderItemId: {}", testDateDto.getOrder_id(), testDateDto.getOrder_item_id());
+	             return true; // Update successful
+	         }
+	     }
+
+	     logger.warn("Order or item not found with orderId: {} and orderItemId: {}", testDateDto.getOrder_id(), testDateDto.getOrder_item_id());
+	     return false; // Order or item not found, update failed
+	}
 
 }

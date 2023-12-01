@@ -11,6 +11,7 @@ import com.onehealth.dto.LabTestOrderItemPair;
 import com.onehealth.dto.OrderDto;
 import com.onehealth.dto.OrderRequest;
 import com.onehealth.dto.OrderUpdateDto;
+import com.onehealth.dto.TestDateDto;
 import com.onehealth.exception.ResourceNotFoundException;
 import com.onehealth.service.LabTestsOrderService;
 import java.util.List;
@@ -151,4 +152,28 @@ public class LabTestsOrderController {
         }
     }
    
+    /**
+     * Updates an existing order.
+     *
+     * @param orderDto The updated order details.
+     * @return A ResponseEntity with true if the order was successfully updated, or not found if the order doesn't exist.
+     * @throws ResourceNotFoundException If a requested resource is not found.
+     */
+    @PutMapping("/update-testDate")
+    public ResponseEntity<?> updateOrderDate(@RequestBody TestDateDto orderDto) throws ResourceNotFoundException {
+        try {
+            logger.info("Updating order with ID: " + orderDto.getOrder_id());
+            boolean updatedOrder = labTestsOrderService.updateTestDate(orderDto);
+            if (updatedOrder) {
+                logger.info("Order updated successfully.");
+                return ResponseEntity.ok(updatedOrder);
+            } else {
+                logger.warn("Order not found for update.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found for update.");
+            }
+        } catch (ResourceNotFoundException e) {
+            logger.warn("Failed to update order: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }
