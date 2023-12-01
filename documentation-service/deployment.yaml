@@ -14,7 +14,7 @@ spec:
     spec: 
       containers:
       - name: documentation-service
-        image: yjb28/documentation-service:v19
+        image: yjb28/documentation-service:v20
 ---
 apiVersion: v1
 kind: Service

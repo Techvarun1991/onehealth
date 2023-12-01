@@ -1,10 +1,14 @@
 package com.onehealth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.onehealth.entity.PatientDocument;
 import com.onehealth.entity.PatientDocument;
 import com.onehealth.exception.DatabaseException;
 import com.onehealth.service.PatientDocumentService;
@@ -156,6 +160,35 @@ public class PatientDocumentController {
         } catch (DatabaseException e) {
             logger.log(Level.SEVERE, "Error occurred while deleting Patient Documents for patient ID: " + patientId, e);
             return ResponseEntity.status(500).body("Error occurred while deleting Patient Documents");
+        }
+    }
+    
+    
+    /**
+     * Downloads a patient document by its ID.
+     *
+     * @param id The ID of the document to download.
+     * @return A ResponseEntity containing the document data as a byte array, or a not found response if the document is not found.
+     * @throws Exception 
+     */
+    @GetMapping("/{id}/download")
+    public ResponseEntity<byte[]> downloadPatientDocument(@PathVariable String id) throws Exception {
+        try {
+            byte[] fileData = patientDocumentService.downloadPatientDocument(id);
+            if (fileData != null) {
+                PatientDocument patientDocument = patientDocumentService.getPatientDocumentById(id).orElse(null);
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.parseMediaType(patientDocument.getFileType()));
+                headers.setContentDispositionFormData("attachment", patientDocument.getFilename());
+                logger.log(Level.INFO, "Retrieved Patient Document with ID: " + id + " for downloading");
+                return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
+            } else {
+                logger.log(Level.INFO, "No Patient Document found with ID: " + id + " for downloading");
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error occurred while downloading Patient Document with ID: " + id);
+            throw e;
         }
     }
 }

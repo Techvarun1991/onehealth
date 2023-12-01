@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.onehealth.entity.PatientDocument;
+import com.onehealth.entity.PatientDocument;
 import com.onehealth.exception.DatabaseException;
 import com.onehealth.repository.PatientDocumentRepository;
 import com.onehealth.service.PatientDocumentService;
@@ -156,6 +157,30 @@ public class PatientDocumentServiceImpl implements PatientDocumentService {
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error occurred while deleting Patient Documents for patient ID: " + patientId, e);
             throw new DatabaseException("Error occurred while deleting Patient Documents");
+        }
+    }
+    
+    
+    /**
+     * Downloads the content of a PatientDocument with the given ID from the repository.
+     *
+     * @param id The ID of the PatientDocument to download.
+     * @return The byte array representing the content of the PatientDocument, or null if not found.
+     */
+    @Override
+    public byte[] downloadPatientDocument(String id) {
+        try {
+            logger.log(Level.INFO, "Downloading PatientDocument with ID: " + id);
+            Optional<PatientDocument> patientDocumentOptional = patientDocumentRepository.findById(id);
+            if (patientDocumentOptional.isPresent()) {
+                logger.log(Level.INFO, "Retrieved PatientDocument with ID: " + id);
+                return patientDocumentOptional.get().getFile();
+            }
+            logger.log(Level.INFO, "No PatientDocument found with ID: " + id);
+            return null;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error occurred while downloading PatientDocument with ID: " + id);
+            throw e;
         }
     }
 }

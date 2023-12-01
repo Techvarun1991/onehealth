@@ -73,4 +73,13 @@ public interface LabDocumentService {
      * @throws DatabaseException If there's an error while deleting lab documents from the repository.
      */
     void deleteLabDocumentsByLabId(long labId) throws DatabaseException;
+    
+    
+    /**
+     * Downloads the file content of a LabDocument with the given ID.
+     * 
+     * @param id The ID of the LabDocument to be downloaded.
+     * @return The byte array representing the file content of the LabDocument.
+     */
+    byte[] downloadLabDocument(String id);
 }

@@ -73,4 +73,13 @@ public interface PatientDocumentService {
      * @throws DatabaseException If there's an error while deleting patient documents from the repository.
      */
     void deletePatientDocumentsByPatientId(long patientId) throws DatabaseException;
+    
+    
+    /**
+     * Downloads the file content of a PatientDocument with the given ID.
+     * 
+     * @param id The ID of the PatientDocument to be downloaded.
+     * @return The byte array representing the file content of the PatientDocument.
+     */
+    byte[] downloadPatientDocument(String id);
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.onehealth.entity.LabDocument;
+import com.onehealth.entity.LabDocument;
 import com.onehealth.exception.DatabaseException;
 import com.onehealth.repository.LabDocumentRepository;
 import com.onehealth.service.LabDocumentService;
@@ -156,6 +157,30 @@ public class LabDocumentServiceImpl implements LabDocumentService {
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error occurred while deleting Lab Documents for lab ID: " + labId, e);
             throw new DatabaseException("Error occurred while deleting Lab Documents");
+        }
+    }
+    
+    
+    /**
+     * Downloads the content of a LabDocument with the given ID from the repository.
+     *
+     * @param id The ID of the LabDocument to download.
+     * @return The byte array representing the content of the LabDocument, or null if not found.
+     */
+    @Override
+    public byte[] downloadLabDocument(String id) {
+        try {
+            logger.log(Level.INFO, "Downloading LabDocument with ID: " + id);
+            Optional<LabDocument> labDocumentOptional = labDocumentRepository.findById(id);
+            if (labDocumentOptional.isPresent()) {
+                logger.log(Level.INFO, "Retrieved LabDocument with ID: " + id);
+                return labDocumentOptional.get().getFile();
+            }
+            logger.log(Level.INFO, "No LabDocument found with ID: " + id);
+            return null;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error occurred while downloading LabDocument with ID: " + id);
+            throw e;
         }
     }
 }

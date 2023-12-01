@@ -1,6 +1,9 @@
 package com.onehealth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -157,4 +160,33 @@ public class LabDocumentController {
             return ResponseEntity.status(500).body("Error occurred while deleting Lab Documents");
         }
     }
+    
+    /**
+     * Downloads a lab document by its ID.
+     *
+     * @param id The ID of the document to download.
+     * @return A ResponseEntity containing the document data as a byte array, or a not found response if the document is not found.
+     * @throws Exception 
+     */
+    @GetMapping("/{id}/download")
+    public ResponseEntity<byte[]> downloadLabDocument(@PathVariable String id) throws Exception {
+        try {
+            byte[] fileData = labDocumentService.downloadLabDocument(id);
+            if (fileData != null) {
+                LabDocument labDocument = labDocumentService.getLabDocumentById(id).orElse(null);
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.parseMediaType(labDocument.getFileType()));
+                headers.setContentDispositionFormData("attachment", labDocument.getFilename());
+                logger.log(Level.INFO, "Retrieved Lab Document with ID: " + id + " for downloading");
+                return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
+            } else {
+                logger.log(Level.INFO, "No Lab Document found with ID: " + id + " for downloading");
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error occurred while downloading Lab Document with ID: " + id);
+            throw e;
+        }
+    }
+    
 }
