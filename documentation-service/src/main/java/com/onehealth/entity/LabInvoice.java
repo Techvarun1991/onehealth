@@ -1,6 +1,7 @@
 package com.onehealth.entity;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,6 +20,7 @@ public class LabInvoice {
     private String fileSize;
     private byte[] file;
     private long orderId;
+    private Date uploadDate;
 
     /**
      * Getter for the ID of the lab invoice.
@@ -104,7 +106,15 @@ public class LabInvoice {
         this.orderId = orderId;
     }
 
-    /**
+    public Date getUploadDate() {
+		return uploadDate;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+	/**
      * Overrides the toString() method to provide a string representation of the LabInvoice object.
      */
     @Override
@@ -119,18 +129,26 @@ public class LabInvoice {
     public LabInvoice() {
         super();
         // TODO Auto-generated constructor stub
+        this.uploadDate = new Date();
     }
-
+    
+    
+    
     /**
      * Parameterized constructor for the LabInvoice class.
      */
-    public LabInvoice(String id, String filename, String fileType, String fileSize, byte[] file, long orderId) {
-        super();
-        this.id = id;
-        this.filename = filename;
-        this.fileType = fileType;
-        this.fileSize = fileSize;
-        this.file = file;
-        this.orderId = orderId;
-    }
+    
+    public LabInvoice(String id, String filename, String fileType, String fileSize, byte[] file, long orderId,
+			Date uploadDate) {
+		super();
+		this.id = id;
+		this.filename = filename;
+		this.fileType = fileType;
+		this.fileSize = fileSize;
+		this.file = file;
+		this.orderId = orderId;
+		this.uploadDate = uploadDate;
+	}
+
+	
 }

@@ -1,6 +1,7 @@
 package com.onehealth.entity;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,7 +20,7 @@ public class MedicinePhoto {
     private byte[] file;            // The byte array representing the uploaded image data
     private String medicine_name;   // The name of the medicine associated with the photo
     private long medicineId;        // The ID of the medicine associated with the photo
-
+    private Date uploadDate;
     /**
      * Override of the toString() method to display the entity's properties.
      *
@@ -38,6 +39,7 @@ public class MedicinePhoto {
     public MedicinePhoto() {
         super();
         // TODO Auto-generated constructor stub
+        this.uploadDate = new Date();
     }
 
     /**
@@ -50,20 +52,22 @@ public class MedicinePhoto {
      * @param file          The byte array representing the uploaded image data.
      * @param medicine_name The name of the medicine associated with the photo.
      * @param medicineId    The ID of the medicine associated with the photo.
+     * @param uploadDate 	The Date on which the document is added.
      */
     public MedicinePhoto(String id, String filename, String fileType, String fileSize, byte[] file,
-            String medicine_name, long medicineId) {
-        super();
-        this.id = id;
-        this.filename = filename;
-        this.fileType = fileType;
-        this.fileSize = fileSize;
-        this.file = file;
-        this.medicine_name = medicine_name;
-        this.medicineId = medicineId;
-    }
+			String medicine_name, long medicineId, Date uploadDate) {
+		super();
+		this.id = id;
+		this.filename = filename;
+		this.fileType = fileType;
+		this.fileSize = fileSize;
+		this.file = file;
+		this.medicine_name = medicine_name;
+		this.medicineId = medicineId;
+		this.uploadDate = uploadDate;
+	}
 
-    /**
+	/**
      * Getter for the ID of the medicine photo document.
      *
      * @return The ID of the medicine photo document.
@@ -188,4 +192,14 @@ public class MedicinePhoto {
     public void setMedicineId(long medicineId) {
         this.medicineId = medicineId;
     }
+
+	public Date getUploadDate() {
+		return uploadDate;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+    
+    
 }

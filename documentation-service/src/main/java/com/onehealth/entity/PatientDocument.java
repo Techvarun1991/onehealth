@@ -1,6 +1,7 @@
 package com.onehealth.entity;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,18 +17,14 @@ public class PatientDocument {
     private byte[] file;
     private long patientId;
     private String recordType;
-	@Override
-	public String toString() {
-		return "PatientDocument [id=" + id + ", filename=" + filename + ", fileType=" + fileType + ", fileSize="
-				+ fileSize + ", file=" + Arrays.toString(file) + ", patientId=" + patientId + ", recordType="
-				+ recordType + "]";
-	}
+    private Date uploadDate;
 	public PatientDocument() {
 		super();
+		this.uploadDate = new Date();
 		// TODO Auto-generated constructor stub
 	}
 	public PatientDocument(String id, String filename, String fileType, String fileSize, byte[] file, long patientId,
-			String recordType) {
+			String recordType, Date uploadDate) {
 		super();
 		this.id = id;
 		this.filename = filename;
@@ -36,6 +33,7 @@ public class PatientDocument {
 		this.file = file;
 		this.patientId = patientId;
 		this.recordType = recordType;
+		this.uploadDate = uploadDate;
 	}
 	public String getId() {
 		return id;
@@ -79,8 +77,16 @@ public class PatientDocument {
 	public void setRecordType(String recordType) {
 		this.recordType = recordType;
 	}
-    
-
-    
-    
+	public Date getUploadDate() {
+		return uploadDate;
+	}
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+	@Override
+	public String toString() {
+		return "PatientDocument [id=" + id + ", filename=" + filename + ", fileType=" + fileType + ", fileSize="
+				+ fileSize + ", file=" + Arrays.toString(file) + ", patientId=" + patientId + ", recordType="
+				+ recordType + ", uploadDate=" + uploadDate + "]";
+	}
 }

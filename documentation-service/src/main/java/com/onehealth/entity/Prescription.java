@@ -1,6 +1,7 @@
 package com.onehealth.entity;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,6 +21,7 @@ public class Prescription {
     private byte[] file;
     private long appointmentId;
     private long patientId;
+    private Date uploadDate;
 
     /**
      * Overrides the toString() method to provide a string representation of the Prescription object.
@@ -128,27 +130,41 @@ public class Prescription {
     public void setPatientId(long patientId) {
         this.patientId = patientId;
     }
+    
+    
 
-    /**
+    public Date getUploadDate() {
+		return uploadDate;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+	/**
      * Default constructor for the Prescription class.
      */
     public Prescription() {
         super();
         // TODO Auto-generated constructor stub
+        this.uploadDate = new Date();
     }
 
     /**
      * Parameterized constructor for the Prescription class.
      */
-    public Prescription(String id, String filename, String fileType, String fileSize, byte[] file, long appointmentId,
-            long patientId) {
-        super();
-        this.id = id;
-        this.filename = filename;
-        this.fileType = fileType;
-        this.fileSize = fileSize;
-        this.file = file;
-        this.appointmentId = appointmentId;
-        this.patientId = patientId;
-    }
+
+	public Prescription(String id, String filename, String fileType, String fileSize, byte[] file, long appointmentId,
+			long patientId, Date uploadDate) {
+		super();
+		this.id = id;
+		this.filename = filename;
+		this.fileType = fileType;
+		this.fileSize = fileSize;
+		this.file = file;
+		this.appointmentId = appointmentId;
+		this.patientId = patientId;
+		this.uploadDate = uploadDate;
+	}
+    
 }

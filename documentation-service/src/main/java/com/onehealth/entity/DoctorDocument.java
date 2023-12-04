@@ -1,6 +1,7 @@
 package com.onehealth.entity;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,7 +19,7 @@ public class DoctorDocument {
     private String fileSize;
     private byte[] file;
     private long doctorId;
-
+    private Date uploadDate;
     /**
      * Getter for the ID of the doctor document.
      */
@@ -102,8 +103,16 @@ public class DoctorDocument {
     public void setDoctorId(long doctorId) {
         this.doctorId = doctorId;
     }
+    
+    public Date getUploadDate() {
+		return uploadDate;
+	}
 
-    /**
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+	/**
      * Overrides the toString() method to provide a string representation of the DoctorDocument object.
      */
     @Override
@@ -118,18 +127,26 @@ public class DoctorDocument {
     public DoctorDocument() {
         super();
         // TODO Auto-generated constructor stub
+        this.uploadDate = new Date();
+        
     }
 
     /**
      * Parameterized constructor for the DoctorDocument class.
      */
-    public DoctorDocument(String id, String filename, String fileType, String fileSize, byte[] file, long doctorId) {
-        super();
-        this.id = id;
-        this.filename = filename;
-        this.fileType = fileType;
-        this.fileSize = fileSize;
-        this.file = file;
-        this.doctorId = doctorId;
-    }
+   
+
+	public DoctorDocument(String id, String filename, String fileType, String fileSize, byte[] file, long doctorId,
+			Date uploadDate) {
+		super();
+		this.id = id;
+		this.filename = filename;
+		this.fileType = fileType;
+		this.fileSize = fileSize;
+		this.file = file;
+		this.doctorId = doctorId;
+		this.uploadDate = uploadDate;
+	}
+
+    
 }
