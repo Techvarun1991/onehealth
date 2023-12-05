@@ -25,4 +25,5 @@ public interface LabTestsOrderService {
 	boolean updateOrder(OrderUpdateDto orderDto) throws ResourceNotFoundException;
 	List<LabOrderDetailsDto> findLabOrderDetailsByLabId(long labId);
 	boolean updateTestDate(TestDateDto testDateDto) throws ResourceNotFoundException;
+	Optional<LabOrderDetailsDto> getLabOrderItemDetails(long labId,long orderId ,long orderItemId);
 }

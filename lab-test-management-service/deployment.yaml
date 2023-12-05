@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: lab-test-management-service
-        image: yjb28/lab-test-management-service:v15
+        image: yjb28/lab-test-management-service:v16
 ---
 apiVersion: v1
 kind: Service

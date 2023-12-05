@@ -125,6 +125,8 @@ public class TestsServiceImplementation implements TestsService{
             updateTest.setLabAddress(labManagement.getAddress());
             updateTest.setLabCity(labManagement.getCity());
             updateTest.setLabName(labManagement.getLab_name());
+            updateTest.setPincode(labManagement.getPincode());
+            updateTest.setLabArea(labManagement.getArea());
             
             
             // TODO Auto-generated method stub
@@ -184,6 +186,8 @@ public class TestsServiceImplementation implements TestsService{
         test.setLabCity(labManagement.getCity());
         test.setLabAddress(labManagement.getAddress());
         test.setLabActive(labManagement.isActive());
+        test.setLabArea(labManagement.getArea());
+        test.setPincode(labManagement.getPincode());
         test.setTestCategory(testDto.getTestCategory());
 
         logger.info("Adding a new test");

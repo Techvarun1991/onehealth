@@ -25,6 +25,8 @@ public class LabManagement {
 
     // Address of the laboratory
     private String address;
+    
+    private String area;
 
     // Postal code of the laboratory location
     private int pincode;
@@ -66,6 +68,7 @@ public class LabManagement {
      * @param lab_id                  The unique identifier for the laboratory.
      * @param lab_name                The name of the laboratory.
      * @param address                 The address of the laboratory.
+     * @param area                    The area where the laboratory is located.
      * @param pincode                 The postal code of the laboratory location.
      * @param city                    The city where the laboratory is located.
      * @param registration_timestamp The timestamp representing the registration date and time of the laboratory.
@@ -75,7 +78,7 @@ public class LabManagement {
      * @param licence_no              The license number of the laboratory.
      * @param isActive				  Active Status of the lab.
      */
-    public LabManagement(long lab_id, String lab_name, String address, int pincode, String city,
+    public LabManagement(long lab_id, String lab_name, String address, String area, int pincode, String city,
                          Timestamp registration_timestamp, String lab_cert_id, Time open_time,
                          Time close_time, String licence_no , boolean isActive) {
         this.lab_id = lab_id;
@@ -89,6 +92,7 @@ public class LabManagement {
         this.close_time = close_time;
         this.licence_no = licence_no;
         this.isActive = isActive;
+        this.area = area;
     }
 
     // Getter and Setter methods for all attributes
@@ -280,6 +284,14 @@ public class LabManagement {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+	
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	/**
      * Returns a string representation of the LabManagement object.
@@ -288,7 +300,7 @@ public class LabManagement {
      */
     @Override
 	public String toString() {
-		return "LabManagement [lab_id=" + lab_id + ", lab_name=" + lab_name + ", address=" + address + ", pincode="
+		return "LabManagement [lab_id=" + lab_id + ", lab_name=" + lab_name + ", address=" + address + ", area="+ area+ ", pincode="
 				+ pincode + ", city=" + city + ", registration_timestamp=" + registration_timestamp + ", lab_cert_id="
 				+ lab_cert_id + ", open_time=" + open_time + ", close_time=" + close_time + ", licence_no=" + licence_no
 				+ ", isActive=" + isActive + "]";

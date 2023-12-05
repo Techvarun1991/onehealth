@@ -7,12 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.onehealth.dto.LabOrderDetailsDto;
+import com.onehealth.dto.LabOrderItemRequest;
 import com.onehealth.dto.LabTestOrderItemPair;
 import com.onehealth.dto.OrderDto;
 import com.onehealth.dto.OrderRequest;
 import com.onehealth.dto.OrderUpdateDto;
 import com.onehealth.dto.TestDateDto;
 import com.onehealth.exception.ResourceNotFoundException;
+import com.onehealth.repository.LabTestsOrderRepository;
 import com.onehealth.service.LabTestsOrderService;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,7 @@ public class LabTestsOrderController {
 
 	@Autowired
     private LabTestsOrderService labTestsOrderService;
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(LabTestsOrderController.class);
 
@@ -175,5 +178,41 @@ public class LabTestsOrderController {
             logger.warn("Failed to update order: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
+    
+    @GetMapping("/lab-order-item")
+    public ResponseEntity<?> getLabOrderItemDetails(@RequestBody LabOrderItemRequest labOrderItemRequest){
+    	 try {
+             // Log the request details
+             logger.info("Received request for lab order details: {}", labOrderItemRequest);
+
+             // Call the service to get lab order details
+             Optional<LabOrderDetailsDto> labOrderDetailsDto = labTestsOrderService.getLabOrderItemDetails(
+                     labOrderItemRequest.getLabId(),
+                     labOrderItemRequest.getOrderId(),
+                     labOrderItemRequest.getOrderItemId());
+
+             // Log the result
+             if (labOrderDetailsDto.isPresent()) {
+                 logger.info("Lab order details found: {}", labOrderDetailsDto.get());
+                 return new ResponseEntity<>(labOrderDetailsDto.get(), HttpStatus.OK);
+             } else {
+            	 String notFoundMessage = "Lab order details not found for LabId: "
+                         + labOrderItemRequest.getLabId()
+                         + ", OrderId: "
+                         + labOrderItemRequest.getOrderId()
+                         + ", OrderItemId: "
+                         + labOrderItemRequest.getOrderItemId();
+                 logger.info("No lab order item details found for LabId: {}, OrderId: {}, OrderItemId: {}",
+                         labOrderItemRequest.getLabId(),
+                         labOrderItemRequest.getOrderId(),
+                         labOrderItemRequest.getOrderItemId());
+                 return new ResponseEntity<>(notFoundMessage ,HttpStatus.NOT_FOUND);
+             }
+         } catch (Exception e) {
+             // Log and handle any unexpected exceptions
+             logger.error("Error occurred while processing lab order details request", e);
+             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+         }
     }
 }

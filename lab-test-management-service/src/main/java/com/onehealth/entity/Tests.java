@@ -80,6 +80,8 @@ public class Tests {
 	private String labCity;
 	private String labAddress;
 	private boolean isLabActive;
+	private String labArea;
+	private int pincode;
 	private String testCategory;
 	
 	
@@ -263,21 +265,53 @@ public class Tests {
 	public void setLabActive(boolean isLabActive) {
 		this.isLabActive = isLabActive;
 	}
+	
+	public String getLabArea() {
+		return labArea;
+	}
+
+	public void setLabArea(String labArea) {
+		this.labArea = labArea;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
 
 	/**
 	 * Override of the toString() method to display the entity's properties.
 	 *
 	 * @return A string representation of the entity.
 	 */
+	
 	@Override
 	public String toString() {
 		return "Tests [test_id=" + test_id + ", testName=" + testName + ", home_sample=" + home_sample
 				+ ", test_description=" + test_description + ", price=" + price + ", test_approval=" + test_approval
 				+ ", gov_appro_cert_path=" + gov_appro_cert_path + ", labId=" + labId + ", labName=" + labName
-				+ ", labCity=" + labCity + ", labAddress=" + labAddress + ", isLabActive=" + isLabActive
-				+ ", testCategory=" + testCategory + "]";
+				+ ", labCity=" + labCity + ", labAddress=" + labAddress + ", isLabActive=" + isLabActive + ", labArea="
+				+ labArea + ", pincode=" + pincode + ", testCategory=" + testCategory + "]";
 	}
 
+
+	
+	
+
+
+	/**
+
+	 * Default constructor for the TestDto class.
+	 */
+	public Tests() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
 
 	/**
 	 * Parameterized constructor for the TestDto class.
@@ -293,7 +327,7 @@ public class Tests {
 	 */
 	public Tests(long test_id, String testName, String home_sample, String test_description, int price,
 			boolean test_approval, String gov_appro_cert_path, long labId, String labName, String labCity,
-			String labAddress, boolean isLabActive, String testCategory) {
+			String labAddress, boolean isLabActive, String labArea, int pincode, String testCategory) {
 		super();
 		this.test_id = test_id;
 		this.testName = testName;
@@ -307,16 +341,9 @@ public class Tests {
 		this.labCity = labCity;
 		this.labAddress = labAddress;
 		this.isLabActive = isLabActive;
+		this.labArea = labArea;
+		this.pincode = pincode;
 		this.testCategory = testCategory;
-	}
-
-
-	/**
-	 * Default constructor for the TestDto class.
-	 */
-	public Tests() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	

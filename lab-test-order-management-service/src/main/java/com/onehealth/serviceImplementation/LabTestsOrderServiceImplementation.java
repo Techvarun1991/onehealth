@@ -337,4 +337,48 @@ public class LabTestsOrderServiceImplementation implements LabTestsOrderService{
 	     return false; // Order or item not found, update failed
 	}
 
+
+
+	public Optional<LabOrderDetailsDto> getLabOrderItemDetails(long labId, long orderId, long orderItemId) {
+	    logger.info("Fetching lab order details by labId: {}", labId);
+	    Object labOrderDetails = labTestsOrderRepository.findLabOrderItemDetailsByLabId(labId, orderId, orderItemId);
+	    
+
+	    if (labOrderDetails == null) {
+	        // Handle the case where the result is null
+	        logger.info("No lab order item details found by labId: {}, orderId: {}, and orderItemId: {}", labId, orderId, orderItemId);
+	        return Optional.empty();
+	    }
+	    LabOrderDetailsDto labOrderDetailsDto = convertToOrderItemDto(labOrderDetails);
+	    logger.info("Found lab order item details by labId: {}, orderId: {}, and orderItemId: {}", labId, orderId, orderItemId);
+	    return Optional.of(labOrderDetailsDto);
+	}
+
+	
+	 public LabOrderDetailsDto convertToOrderItemDto(Object originalData) {
+	       
+		 		Object[] row = (Object[]) originalData;
+	            LabOrderDetailsDto dto = new LabOrderDetailsDto();
+	            dto.setOrderItemId(((Integer) row[0]).longValue());
+	            dto.setTest_id(((Long) row[1]));
+	            dto.setTest_name((String) row[2]);
+	            dto.setLabName((String) row[3]);
+	            dto.setLabId(((Long) row[4]));
+	            dto.setLabAddress((String) row[5]);
+	            dto.setTestCategory((String) row[6]);
+	            dto.setTest_date((Date) row[7]);
+	            dto.setPrice((Double) row[8]);
+	            dto.setQuantity((Integer) row[9]);
+	            dto.setOrder_id(((Long) row[10]));
+	            dto.setOrder_status((String) row[11]);
+	            dto.setPayment_mode((String) row[12]);
+	            dto.setPayment_status((String) row[13]);
+	            dto.setOrder_created((Timestamp) row[14]);
+	            dto.setTotal_amount((Double) row[15]);
+	            dto.setPatientId(((Long) row[16]));
+	            dto.setTransactionId(((Long) row[17]));
+	            dto.setPatient_name((String) row[18]);
+
+	            return dto;
+	    }
 }
